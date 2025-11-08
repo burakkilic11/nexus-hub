@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  # MongoDB servisimiz
+  mongo-db:
+    image: mongo:latest # Her zaman en son MongoDB imajını kullan
+    container_name: nexus-mongo-db # Konteynere verdiğimiz özel isim
+    ports:
+      - "27017:27017" # Makinemizin 27017 portunu konteynerin 27017 portuna bağla
+    volumes:
+      - ./.mongo-data:/data/db # Verilerin kalıcı olması için (Konteyner silinse bile veriler kalır)
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: nexususer
+      MONGO_INITDB_ROOT_PASSWORD: nexuspassword
