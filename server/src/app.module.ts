@@ -1,24 +1,29 @@
+// server/src/app.module.ts
+
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    // .env dosyasını yüklemek için (1)
     ConfigModule.forRoot({
-      isGlobal: true, // Config modülünü global yapar
+      isGlobal: true,
     }),
-
-    // Veritabanı bağlantısı için (2)
     MongooseModule.forRootAsync({
-      imports: [ConfigModule], // Config modülünü burada da kullan
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DATABASE_URL'), // .env'den URL'i çek
+      imports: [ConfigModule],
+
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('DATABASE_URL'),
       }),
+
       inject: [ConfigService],
     }),
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
