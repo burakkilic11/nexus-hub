@@ -2,10 +2,16 @@
 
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs'; // RxJS Kütüphanesi
+import { Observable, catchError, throwError } from 'rxjs';
 
 export interface AuthResponse {
   access_token: string;
+}
+
+// Profile API'sinden ne beklediğimizi tanımlıyoruz
+export interface UserProfile {
+  userId: string;
+  email: string;
 }
 
 @Injectable({
@@ -13,35 +19,50 @@ export interface AuthResponse {
 })
 export class AuthService {
   private http = inject(HttpClient);
-
-  // Sunucumuzun (NestJS) adresini bir değişkende tutuyoruz.
   private apiUrl = 'http://localhost:3000/auth';
+
+  // Token'ı saklayacağımız anahtar
+  private readonly TOKEN_KEY = 'nexus_auth_token';
 
   constructor() {}
 
   login(email: string, password: string): Observable<AuthResponse> {
-    
-    // API'ye POST isteği atıyoruz:
-    // 1. URL: 'http://localhost:3000/auth/login'
-    // 2. Body: { email, password }
-    // 3. Dönen verinin tipinin 'AuthResponse' olmasını beklediğimizi söylüyoruz.
     return this.http
       .post<AuthResponse>(`${this.apiUrl}/login`, { email, password })
       .pipe(
-        // '.pipe()' metodu, bu 'Observable' akışına
-        // müdahale etmemizi sağlar.
         catchError((error) => {
-          // Eğer API 401 (Geçersiz Şifre) gibi bir hata döndürürse,
-          // 'catchError' bunu yakalar.
           console.error('Login API Hata:', error);
-          
-          // Hata akışını devam ettiririz ki
-          // bu servisi kullanan component (Login Formu) hatayı görebilsin.
           return throwError(() => error);
         }),
       );
   }
 
-  // Not: signUp (Kayıt Ol) fonksiyonunu da buraya ekleyebilirdik,
-  // ama şimdilik sadece 'login' işlemine odaklanıyoruz.
+  // /profile endpoint'ine istek atacak fonksiyon
+  getProfile(): Observable<UserProfile> {
+    return this.http
+      .get<UserProfile>(`${this.apiUrl}/profile`)
+      .pipe(
+        catchError((error) => {
+          console.error('Get Profile API Hata:', error);
+          return throwError(() => error);
+        })
+      );
+  }
+
+  // --- Token Depolama (LocalStorage) ---
+
+  // Token'ı tarayıcının yerel depolamasına kaydeder
+  saveToken(token: string): void {
+    localStorage.setItem(this.TOKEN_KEY, token);
+  }
+
+  // Token'ı yerel depolamadan okur
+  getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  // Token'ı yerel depolamadan siler (Logout için)
+  logout(): void {
+    localStorage.removeItem(this.TOKEN_KEY);
+  }
 }
