@@ -1,21 +1,14 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core'; // importProvidersFrom eklendi
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
-// YENİ EKLENDİ: API istekleri için (HttpClient)
-import { provideHttpClient } from '@angular/common/http';
-
-// YENİ EKLENDİ: Formlar (Login Formu) için
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { authInterceptor } from './auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-
-    // YENİ EKLENDİ: Angular'a "HttpClient'ı kullanıma hazırla" diyoruz.
-    provideHttpClient(),
-
-    // YENİ EKLENDİ: Angular'a "Form modüllerini kullanıma hazırla" diyoruz.
+    provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom(FormsModule),
   ],
 };
