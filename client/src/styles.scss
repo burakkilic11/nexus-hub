@@ -1,12 +1,14 @@
+@use 'variables' as vars;
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  html, body {
-    height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: #f4f7f6; // Açık gri bir arka plan
-    color: #333;
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: vars.$font-main;
+  background-color: vars.$color-bg; 
+  color: vars.$color-text;
+}

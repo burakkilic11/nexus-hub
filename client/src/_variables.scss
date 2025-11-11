@@ -1,0 +1,18 @@
+// 1. Renk Paletimiz (Palette)
+$color-bg: #1c1e24;           // Koyu Lacivert (Ana Arka Plan)
+$color-card: #33303b;          // Mor (Kartlar / Birincil)
+$color-accent: #9ad4d6;        // Turkuaz (Butonlar / Vurgu)
+$color-text: #f2fdff;         // Açık Mavi (Ana Metin)
+$color-text-subtle: #dbcbd8;  // Lavanta (İkincil Metin / Bordür)
+
+// 2. Marka Renkleri (Semantik)
+// (Gelecekte hata/başarı için paletten renkler seçebiliriz)
+$color-error: #e74c3c;
+$color-success: #2ecc71;
+
+// 3. Tipografi
+$font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+// 4. Standart Ölçüler
+$border-radius-main: 8px;
+$box-shadow-main: 0 4px 10px rgba(0, 0, 0, 0.25);
