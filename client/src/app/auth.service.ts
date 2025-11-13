@@ -37,6 +37,17 @@ export class AuthService {
       );
   }
 
+  register(email: string, password: string): Observable<any> {
+    return this.http
+      .post<any>(`${this.apiUrl}/register`, { email, password })
+      .pipe(
+        catchError((error) => {
+          console.error('Register API Hata:', error);
+          return throwError(() => error);
+        }),
+      );
+  }
+
   // /profile endpoint'ine istek atacak fonksiyon
   getProfile(): Observable<UserProfile> {
     return this.http

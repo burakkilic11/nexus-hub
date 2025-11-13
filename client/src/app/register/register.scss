@@ -1,4 +1,4 @@
-/* client/src/app/login/login.scss (TAMAMI) */
+/* client/src/app/register/register.scss (login.scss'in kopyası) */
 
 @use 'sass:color';
 @use '../../variables' as vars;
@@ -39,7 +39,6 @@
   input {
     width: 100%;
     padding: 12px 15px;
-    // DÜZELTME: 'lighten' yerine 'color.adjust'
     background: color.adjust(vars.$color-bg, $lightness: 10%);
     border: 1px solid vars.$color-text-subtle;
     border-radius: 4px;
@@ -61,7 +60,6 @@ button[type="submit"] {
   transition: background-color 0.2s ease;
 
   &:hover {
-    // DÜZELTME: 'darken' yerine 'color.adjust'
     background-color: color.adjust(vars.$color-accent, $lightness: -10%);
   }
 }
@@ -88,7 +86,8 @@ button[type="submit"] {
   }
 }
 
-// DÜZELTME: 'NEX-012', Adım 5'teki .register-link stili
+// Bu link, 'login.html'den farklı olarak
+// 'Zaten hesabınız var mı?' yazar
 .register-link {
   width: 100%;
   max-width: 400px;
