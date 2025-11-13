@@ -2,42 +2,41 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService, AuthResponse } from '../auth.service';
+import { AuthService } from '../auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
-  templateUrl: './login.html',
-  styleUrl: './login.scss',
+  templateUrl: './register.html',
+  styleUrl: './register.scss',
 })
-export class Login {
+export class Register {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  email = 'test@example.com';
-  password = 'strongpassword123';
+  email = '';
+  password = '';
 
   apiResponse: string = '';
   apiError: string = '';
 
-  login() {
+  register() {
     this.apiResponse = '';
     this.apiError = '';
 
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response: AuthResponse) => {
-        this.apiResponse = 'Giriş başarılı. Yönlendiriliyorsunuz...';
-        
-        // 1. Token'ı kaydet
-        this.authService.saveToken(response.access_token);
-        
-        // 2. /dashboard sayfasına yönlendir
-        this.router.navigate(['/dashboard']);
+    this.authService.register(this.email, this.password).subscribe({
+      
+      next: (response: any) => {
+        // (Gelecekte: response.message'i de kullanabiliriz)
+        this.apiResponse = 'Kayıt başarılı! Lütfen giriş yapın.';
+
+        // 2. /login sayfasına yönlendir
+        this.router.navigate(['/login']);
       },
       error: (err: HttpErrorResponse) => {
-        console.error('Login Hatası:', err);
+        console.error('Kayıt Olma Hatası:', err);
         this.apiError = `Hata: ${err.error?.message || 'Sunucuya bağlanılamadı'}`;
       },
     });

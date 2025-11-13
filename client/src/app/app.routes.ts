@@ -6,6 +6,7 @@ import { Routes } from '@angular/router';
 import { Login } from './login/login'; 
 import { Dashboard } from './dashboard/dashboard';
 import { authGuard } from './auth-guard';
+import { Register } from './register/register';
 
 export const routes: Routes = [
   
@@ -29,6 +30,12 @@ export const routes: Routes = [
     redirectTo: '/login',
     pathMatch: 'full', // 'tam' eşleşme olmalı
   },
-  
+
+  // Rota 4: /register'a gidildiğinde
+  {
+    path:'register',
+    component: Register,
+  }
+
   // Gelecekte bir "404 Not Found" sayfası da ekleyeceğiz
 ];
