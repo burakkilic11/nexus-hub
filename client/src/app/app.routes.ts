@@ -1,12 +1,11 @@
 // client/src/app/app.routes.ts
 
 import { Routes } from '@angular/router';
-
-// YENİ EKLENDİ: Oluşturduğumuz iki component'i 'import' ediyoruz
 import { Login } from './login/login'; 
 import { Dashboard } from './dashboard/dashboard';
 import { authGuard } from './auth-guard';
 import { Register } from './register/register';
+import { Notes } from './notes/notes';
 
 export const routes: Routes = [
   
@@ -35,7 +34,11 @@ export const routes: Routes = [
   {
     path:'register',
     component: Register,
-  }
+  },
 
-  // Gelecekte bir "404 Not Found" sayfası da ekleyeceğiz
+  {
+    path: 'notes',
+    component: Notes,
+    canActivate: [authGuard], // Korumalı (Dashboard gibi)
+  },
 ];

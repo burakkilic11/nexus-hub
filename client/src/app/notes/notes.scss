@@ -1,0 +1,128 @@
+@use 'sass:color';
+@use '../../variables' as vars;
+
+.notes-page-container {
+  width: 100%;
+  max-width: 900px; // Dashboard'dan daha geniş olabilir
+  margin: 0 auto; // Sayfayı ortala
+  padding: 30px;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between; // Sağa ve sola yasla
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid vars.$color-card; // Ayırıcı çizgi
+  padding-bottom: 20px;
+
+  h1 {
+    color: vars.$color-accent; // Turkuaz
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 20px; // Aralarına boşluk koy
+  }
+
+  a {
+    color: vars.$color-text-subtle; // Lavanta
+    text-decoration: none;
+    font-weight: 500;
+    &:hover {
+      color: vars.$color-accent;
+      text-decoration: underline;
+    }
+  }
+
+  .logout-button {
+    padding: 8px 16px;
+    background-color: vars.$color-error;
+    color: vars.$color-text;
+    border: none;
+    border-radius: vars.$border-radius-main;
+    cursor: pointer;
+    &:hover {
+      background-color: color.adjust(vars.$color-error, $lightness: -10%);
+    }
+  }
+}
+
+.note-form {
+  display: flex;
+  margin-bottom: 30px;
+
+  input {
+    flex-grow: 1; // Tüm boş alanı kapla
+    padding: 12px 15px;
+    background: color.adjust(vars.$color-bg, $lightness: 10%);
+    border: 1px solid vars.$color-text-subtle;
+    border-radius: vars.$border-radius-main 0 0 vars.$border-radius-main; // Sol kenarları yuvarla
+    font-size: 16px;
+    color: vars.$color-text;
+  }
+
+  button {
+    padding: 12px 20px;
+    background-color: vars.$color-accent;
+    color: vars.$color-bg;
+    border: none;
+    border-radius: 0 vars.$border-radius-main vars.$border-radius-main 0; // Sağ kenarları yuvarla
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover {
+      background-color: color.adjust(vars.$color-accent, $lightness: -10%);
+    }
+  }
+}
+
+.notes-list-container {
+  h2 {
+    color: vars.$color-text-subtle;
+    margin-bottom: 20px;
+  }
+  
+  .empty-state {
+    color: vars.$color-text-subtle;
+    font-style: italic;
+  }
+
+  .notes-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); // Responsive grid
+    gap: 20px;
+  }
+
+  .note-item {
+    background: vars.$color-card; // Mor kart
+    padding: 20px;
+    border-radius: vars.$border-radius-main;
+    box-shadow: vars.$box-shadow-main;
+
+    p { // Not içeriği
+      font-size: 1.1em;
+      margin-bottom: 15px;
+    }
+
+    span { // Tarih
+      font-size: 0.8em;
+      color: vars.$color-text-subtle;
+    }
+  }
+}
+
+// Hata mesajı
+.response.error {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: vars.$border-radius-main;
+  font-weight: 500;
+  background-color: color.adjust(vars.$color-error, $lightness: 35%);
+  border: 1px solid vars.$color-error;
+  color: vars.$color-error;
+}

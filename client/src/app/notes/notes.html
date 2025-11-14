@@ -1,0 +1,42 @@
+<div class="notes-page-container">
+  
+  <header class="notes-header">
+    <h1>Not Defteri Modülü</h1>
+    <nav>
+      <a routerLink="/dashboard">Ana Menüye (Hub) Geri Dön</a>
+      <button (click)="logout()" class="logout-button">
+        Çıkış Yap
+      </button>
+    </nav>
+  </header>
+
+  <form (ngSubmit)="addNote()" class="note-form">
+    <input 
+      type="text" 
+      placeholder="Yeni bir not yazın..."
+      name="newNoteContent"
+      [(ngModel)]="newNoteContent"
+    >
+    <button type="submit">Not Ekle</button>
+  </form>
+
+  <div *ngIf="apiError" class="response error">
+    {{ apiError }}
+  </div>
+
+  <div class="notes-list-container">
+    <h2>Notlarım</h2>
+    
+    <div *ngIf="myNotes.length === 0 && !apiError" class="empty-state">
+      Henüz bir notunuz yok.
+    </div>
+    
+    <ul class="notes-list">
+      <li *ngFor="let note of myNotes" class="note-item">
+        <p>{{ note.content }}</p>
+        <span>{{ note.createdAt | date: 'short' }}</span> 
+      </li>
+    </ul>
+  </div>
+
+</div>
