@@ -1,20 +1,32 @@
-<div class="dashboard-container">
-
-    <div *ngIf="!userEmail && !apiError" class="loading">
-      Profil verisi yükleniyor...
-    </div>
+<div class="dashboard-hub">
   
-    <div *ngIf="userEmail" class="profile-header">
-      <h1>Hoş geldin, {{ userEmail }}!</h1>
-      <p>Nexus Hub Dashboard'ına bağlandın.</p>
-  
+  <header class="hub-header">
+    <div class="logo">
+      <h1>Nexus Hub</h1>
+      <span>Hoş geldin!</span> </div>
+    <nav>
       <button (click)="logout()" class="logout-button">
         Çıkış Yap
       </button>
-    </div>
-  
-    <div *ngIf="apiError" class="response error">
-      {{ apiError }}
-    </div>
-  
-  </div>
+    </nav>
+  </header>
+
+  <main class="widget-grid">
+    <h2>Widget'larım</h2>
+    
+    <div class="grid-container">
+      
+      <a routerLink="/notes" class="widget-card">
+        <div class="widget-icon">
+          📝
+        </div>
+        <div class="widget-content">
+          <h3>Not Defteri</h3>
+          <p>Hızlı ve kişisel notlarınızı yönetin.</p>
+        </div>
+      </a>
+
+      </div>
+  </main>
+
+</div>
