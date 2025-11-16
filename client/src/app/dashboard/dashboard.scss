@@ -1,64 +1,92 @@
 @use 'sass:color';
 @use '../../variables' as vars;
 
-.dashboard-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 50px;
+.dashboard-hub {
+  width: 100%;
+  max-width: 1200px; // Ana menü geniş olabilir
+  margin: 0 auto;
+  padding: 30px;
 }
 
-.profile-header {
-  width: 100%;
-  max-width: 600px;
-  padding: 30px;
-  background: vars.$color-card;
+.hub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  border-bottom: 1px solid vars.$color-card; // (Mor)
+  padding-bottom: 20px;
+
+  .logo {
+    h1 {
+      color: vars.$color-accent; // (Turkuaz)
+      margin: 0;
+    }
+    span {
+      color: vars.$color-text-subtle; // (Lavanta)
+      font-style: italic;
+    }
+  }
+
+  .logout-button {
+    // (Bu stil 'notes.scss'ten kopyalandı)
+    padding: 8px 16px;
+    background-color: vars.$color-error;
+    color: vars.$color-text;
+    border: none;
+    border-radius: vars.$border-radius-main;
+    cursor: pointer;
+    &:hover {
+      background-color: color.adjust(vars.$color-error, $lightness: -10%);
+    }
+  }
+}
+
+.widget-grid {
+  h2 {
+    color: vars.$color-text-subtle;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+  }
+
+  .grid-container {
+    display: grid;
+    // Responsive ızgara: 1-3 sütunlu
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px; // Kartlar arası boşluk
+  }
+}
+
+// Widget Kartının Stili
+.widget-card {
+  display: flex;
+  align-items: center;
+  padding: 25px;
+  background: vars.$color-card; // (Mor)
   border-radius: vars.$border-radius-main;
   box-shadow: vars.$box-shadow-main;
-  text-align: center;
-
-  h1 {
-    color: vars.$color-accent; 
-    margin-bottom: 10px;
-  }
-
-  p {
-    color: vars.$color-text-subtle; 
-  }
-}
-
-.logout-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: vars.$color-error; 
-  color: vars.$color-text;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  text-decoration: none; // Link alt çizgisini kaldır
+  color: vars.$color-text; // (Açık Mavi)
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    // DÜZELTME 3: Eskimiş 'darken' UYARI'sını düzelt
-    background-color: color.adjust(vars.$color-error, $lightness: -10%);
+    // Üzerine gelince hafifçe "yükselme" efekti
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
   }
-}
 
-.loading {
-  font-size: 1.2em;
-  color: vars.$color-text-subtle;
-}
+  .widget-icon {
+    font-size: 2.5em; // İkon (emoji) boyutu
+    margin-right: 20px;
+  }
 
-.response.error {
-  width: 100%;
-  max-width: 600px;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: vars.$border-radius-main;
-  font-weight: 500;
-  // DÜZELTME 3: Eskimiş 'lighten' UYARI'sını düzelt
-  background-color: color.adjust(vars.$color-error, $lightness: 35%);
-  border: 1px solid vars.$color-error;
-  color: vars.$color-error;
+  .widget-content {
+    h3 {
+      color: vars.$color-accent; // (Turkuaz)
+      margin-bottom: 5px;
+    }
+    p {
+      color: vars.$color-text-subtle; // (Lavanta)
+      font-size: 0.9em;
+    }
+  }
 }
