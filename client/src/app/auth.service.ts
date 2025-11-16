@@ -19,7 +19,7 @@ export interface UserProfile {
 })
 export class AuthService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/auth';
+  private apiUrl = '/api/auth';
 
   // Token'ı saklayacağımız anahtar
   private readonly TOKEN_KEY = 'nexus_auth_token';

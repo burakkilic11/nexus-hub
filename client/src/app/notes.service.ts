@@ -18,7 +18,7 @@ export class NotesService {
   private http = inject(HttpClient);
   
   // API adresi
-  private apiUrl = 'http://localhost:3000/notes';
+  private apiUrl = '/api/notes';
 
   constructor() {}
 
