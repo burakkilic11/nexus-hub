@@ -1,0 +1,128 @@
+@use 'sass:color';
+@use '../../variables' as vars;
+
+// 'notes.scss'ten kopyalanan genel yapı
+.watchlist-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.header { // ('notes-header' yerine daha genel bir isim)
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid vars.$color-card;
+  padding-bottom: 20px;
+
+  h1 {
+    color: vars.$color-accent;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  a {
+    color: vars.$color-text-subtle;
+    text-decoration: none;
+    font-weight: 500;
+    &:hover {
+      color: vars.$color-accent;
+      text-decoration: underline;
+    }
+  }
+
+  .logout-button {
+    padding: 8px 16px;
+    background-color: vars.$color-error;
+    color: vars.$color-text;
+    border: none;
+    border-radius: vars.$border-radius-main;
+    cursor: pointer;
+    &:hover {
+      background-color: color.adjust(vars.$color-error, $lightness: -10%);
+    }
+  }
+}
+
+// 'notes-form'a benzeyen form
+.video-form {
+  display: flex;
+  margin-bottom: 30px;
+
+  input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    background: color.adjust(vars.$color-bg, $lightness: 10%);
+    border: 1px solid vars.$color-text-subtle;
+    border-radius: vars.$border-radius-main 0 0 vars.$border-radius-main;
+    font-size: 16px;
+    color: vars.$color-text;
+  }
+
+  button {
+    padding: 12px 20px;
+    background-color: vars.$color-accent;
+    color: vars.$color-bg;
+    border: none;
+    border-radius: 0 vars.$border-radius-main vars.$border-radius-main 0;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover {
+      background-color: color.adjust(vars.$color-accent, $lightness: -10%);
+    }
+  }
+}
+
+// YENİ EKLENDİ: Video listesi için stiller
+.video-list-container {
+  h2 {
+    color: vars.$color-text-subtle;
+    margin-bottom: 20px;
+  }
+  
+  .empty-state {
+    color: vars.$color-text-subtle;
+    font-style: italic;
+  }
+
+  .video-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    // 'notes'e benzer bir ızgara (grid) yapısı
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .video-item {
+    background: vars.$color-card; // Mor kart
+    border-radius: vars.$border-radius-main;
+    box-shadow: vars.$box-shadow-main;
+    overflow: hidden; // iframe'in köşeleri karttan taşmasın
+
+    iframe {
+      width: 100%; // Kartın tamamını kapla
+      display: block; // 'inline' boşluklarını kaldır
+      border: none;
+    }
+  }
+}
+
+// Hata mesajı (notes.scss'ten kopyalandı)
+.response.error {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: vars.$border-radius-main;
+  font-weight: 500;
+  background-color: color.adjust(vars.$color-error, $lightness: 35%);
+  border: 1px solid vars.$color-error;
+  color: vars.$color-error;
+}

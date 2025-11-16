@@ -1,0 +1,51 @@
+<div class="watchlist-container">
+  
+  <header class="header">
+    <h1>YouTube İzleme Listesi</h1>
+    <nav>
+      <a routerLink="/dashboard">Ana Menüye (Hub) Geri Dön</a>
+      <button (click)="logout()" class="logout-button">
+        Çıkış Yap
+      </button>
+    </nav>
+  </header>
+
+  <form (ngSubmit)="addVideo()" class="video-form">
+    <input 
+      type="url" 
+      placeholder="Yeni bir YouTube linki yapıştırın (https://...)"
+      name="newVideoUrl"
+      [(ngModel)]="newVideoUrl"
+    >
+    <button type="submit">Listeye Ekle</button>
+  </form>
+
+  <div *ngIf="apiError" class="response error">
+    {{ apiError }}
+  </div>
+
+  <div class="video-list-container">
+    <h2>Listemdekiler</h2>
+    
+    <div *ngIf="myWatchlist.length === 0 && !apiError" class="empty-state">
+      İzleme listeniz boş.
+    </div>
+    
+    <ul class="video-list">
+      <li *ngFor="let video of myWatchlist" class="video-item">
+        
+        <iframe 
+          width="100%" 
+          height="200" 
+          [src]="getSafeVideoUrl(video.videoId)" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+        
+        </li>
+    </ul>
+  </div>
+
+</div>
