@@ -16,7 +16,7 @@ export interface WatchlistItem {
 export class WatchlistService {
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:3000/watchlist';
+  private apiUrl = '/api/watchlist';
 
   constructor() {}
 
