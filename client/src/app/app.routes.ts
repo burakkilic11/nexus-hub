@@ -5,6 +5,7 @@ import { Register } from './register/register';
 import { authGuard } from './auth-guard';
 import { Notes } from './notes/notes';
 import { Watchlist } from './watchlist/watchlist';
+import { Books } from './books/books';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,12 @@ export const routes: Routes = [
   {
     path: 'watchlist',
     component: Watchlist,
+    canActivate: [authGuard],
+  },
+
+  {
+    path: 'books',
+    component: Books,
     canActivate: [authGuard],
   },
   

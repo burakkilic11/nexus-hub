@@ -1,0 +1,228 @@
+/* client/src/app/books/books.scss */
+
+// Global değişkenlerimizi 'import' et
+@use 'sass:color';
+@use '../../variables' as vars;
+
+// Header (notes.scss'ten kopyalandı)
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 1px solid vars.$color-card;
+  padding-bottom: 20px;
+  h1 { color: vars.$color-accent; }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  a {
+    color: vars.$color-text-subtle;
+    text-decoration: none;
+    font-weight: 500;
+    &:hover {
+      color: vars.$color-accent;
+      text-decoration: underline;
+    }
+  }
+  .logout-button {
+    padding: 8px 16px;
+    background-color: vars.$color-error;
+    color: vars.$color-text;
+    border: none;
+    border-radius: vars.$border-radius-main;
+    cursor: pointer;
+    &:hover {
+      background-color: color.adjust(vars.$color-error, $lightness: -10%);
+    }
+  }
+}
+
+// Yeni Kitap Ekleme Formu
+.book-form {
+  padding: 20px;
+  background: color.adjust(vars.$color-bg, $lightness: 5%); // Arka plandan biraz açık
+  border-radius: vars.$border-radius-main;
+  margin-bottom: 40px;
+
+  h3 {
+    color: vars.$color-text-subtle;
+    margin-bottom: 15px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+
+  input[type="text"], input[type="url"] {
+    flex-grow: 1; // Boşluğu doldur
+    padding: 12px 15px;
+    background: color.adjust(vars.$color-bg, $lightness: 10%);
+    border: 1px solid vars.$color-text-subtle;
+    border-radius: 4px;
+    font-size: 16px;
+    color: vars.$color-text;
+    
+    // İki input'u eşitle
+    &:first-of-type { flex-basis: 30%; }
+    &:last-of-type { flex-basis: 70%; }
+  }
+
+  button {
+    padding: 12px 20px;
+    background-color: vars.$color-accent;
+    color: vars.$color-bg;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover {
+      background-color: color.adjust(vars.$color-accent, $lightness: -10%);
+    }
+  }
+}
+
+// Ana "İki Sütunlu" (Grid) Yapı
+.books-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; // 50% 50% iki sütun
+  gap: 30px; // Sütunlar arası boşluk
+}
+
+// Her iki sütun için ortak stiller
+.book-list-container {
+  h2 {
+    color: vars.$color-text-subtle;
+    margin-bottom: 20px;
+  }
+  .empty-state {
+    color: vars.$color-text-subtle;
+    font-style: italic;
+  }
+  .book-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+// Kitap Kartı (Genel)
+.book-card {
+  background: vars.$color-card; // Mor
+  border-radius: vars.$border-radius-main;
+  box-shadow: vars.$box-shadow-main;
+  padding: 20px;
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid color.adjust(vars.$color-bg, $lightness: 10%);
+  }
+  
+  // Favori butonu
+  .favorite-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    opacity: 0.3; // Varsayılan olarak soluk
+    transition: all 0.2s ease;
+    
+    &.active { // 'isFavorite: true' ise
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  // Kitap başlığı linki
+  a {
+    color: vars.$color-text; // Açık renk
+    font-size: 1.2em;
+    font-weight: 600;
+    text-decoration: none;
+    &:hover {
+      color: vars.$color-accent;
+    }
+  }
+}
+
+// "Okunacaklar" Kartına özel stil
+.book-card.to-read {
+  .card-actions {
+    text-align: right;
+  }
+  .action-btn.read-btn {
+    background: vars.$color-accent;
+    color: vars.$color-bg;
+  }
+}
+
+// "Okunanlar" Kartına özel stil
+.book-card.read {
+  // Yorum Formu Stilleri
+  .review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .form-group {
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 0.9em;
+        color: vars.$color-text-subtle;
+      }
+      input, textarea {
+        width: 100%;
+        padding: 8px;
+        background: color.adjust(vars.$color-bg, $lightness: 10%);
+        border: 1px solid vars.$color-text-subtle;
+        border-radius: 4px;
+        color: vars.$color-text;
+      }
+    }
+    .action-btn.save-btn {
+      background: vars.$color-success;
+      color: vars.$color-text;
+    }
+  }
+}
+
+// Tüm aksiyon butonları için ortak stil
+.action-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// Hata mesajları
+.response.error {
+  padding: 15px;
+  border-radius: vars.$border-radius-main;
+  font-weight: 500;
+  background-color: color.adjust(vars.$color-error, $lightness: 35%);
+  border: 1px solid vars.$color-error;
+  color: vars.$color-error;
+  
+  // 'addBook' için daha küçük hata
+  &.small-error {
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
