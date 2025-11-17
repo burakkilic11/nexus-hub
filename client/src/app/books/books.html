@@ -1,0 +1,121 @@
+<div class="books-page-container">
+  
+  <header class="header">
+    <h1>Kitaplık Widget'ı</h1>
+    <nav>
+      <a routerLink="/dashboard">Ana Menüye (Hub) Geri Dön</a>
+      <button (click)="logout()" class="logout-button">
+        Çıkış Yap
+      </button>
+    </nav>
+  </header>
+
+  <form (ngSubmit)="addBook()" class="book-form">
+    <h3>Yeni Kitap Ekle</h3>
+    <div class="form-row">
+      <input 
+        type="text" 
+        placeholder="Kitap Başlığı"
+        name="newBookTitle"
+        [(ngModel)]="newBookTitle"
+        required
+      >
+      <input 
+        type="url" 
+        placeholder="Kitap/Link URL'i (https://...)"
+        name="newBookUrl"
+        [(ngModel)]="newBookUrl"
+        required
+      >
+      <button type="submit">Listeye Ekle</button>
+    </div>
+    <div *ngIf="addBookError" class="response error small-error">
+      {{ addBookError }}
+    </div>
+  </form>
+  
+  <div *ngIf="loadBooksError" class="response error">
+    {{ loadBooksError }}
+  </div>
+
+  <div class="books-layout">
+    
+    <section class="book-list-container">
+      <h2>Okunacaklar ({{ toReadBooks.length }})</h2>
+      
+      <div *ngIf="toReadBooks.length === 0 && !loadBooksError" class="empty-state">
+        Okunacak kitabınız yok.
+      </div>
+      
+      <ul class="book-list">
+        <li *ngFor="let book of toReadBooks" class="book-card to-read">
+          <header>
+            <button 
+              (click)="toggleFavorite(book)" 
+              class="favorite-btn"
+              [class.active]="book.isFavorite"
+            >
+              ⭐
+            </button>
+            <a [href]="book.url" target="_blank" rel="noopener noreferrer">{{ book.title }}</a>
+          </header>
+          <div class="card-actions">
+            <button (click)="markAsRead(book._id)" class="action-btn read-btn">
+              Okundu Olarak İşaretle
+            </button>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="book-list-container">
+      <h2>Okunanlar ({{ readBooks.length }})</h2>
+      
+      <div *ngIf="readBooks.length === 0 && !loadBooksError" class="empty-state">
+        Henüz okuduğunuz kitap yok.
+      </div>
+
+      <ul class="book-list">
+        <li *ngFor="let book of readBooks" class="book-card read">
+          <header>
+            <button 
+              (click)="toggleFavorite(book)" 
+              class="favorite-btn"
+              [class.active]="book.isFavorite"
+            >
+              ⭐
+            </button>
+            <a [href]="book.url" target="_blank" rel="noopener noreferrer">{{ book.title }}</a>
+          </header>
+          
+          <form (ngSubmit)="saveReview(book)" class="review-form">
+            <div class="form-group">
+              <label>Puan (1-5):</label>
+              <input 
+                type="number" 
+                min="1" 
+                max="5" 
+                name="rating-{{book._id}}" 
+                [(ngModel)]="book.rating"
+              >
+            </div>
+            <div class="form-group">
+              <label>Yorum:</label>
+              <textarea 
+                name="comment-{{book._id}}" 
+                [(ngModel)]="book.comment"
+                rows="3"
+                placeholder="Bu kitap hakkında ne düşünüyorsun?"
+              ></textarea>
+            </div>
+            <button type="submit" class="action-btn save-btn">
+              Yorumu Kaydet
+            </button>
+          </form>
+
+        </li>
+      </ul>
+    </section>
+
+  </div>
+</div>

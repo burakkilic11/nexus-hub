@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { NotesModule } from './notes/notes.module';
 import { WatchlistModule } from './watchlist/watchlist.module';
+import { BooksModule } from './books/books.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { WatchlistModule } from './watchlist/watchlist.module';
     AuthModule,
     NotesModule,
     WatchlistModule,
+    BooksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
